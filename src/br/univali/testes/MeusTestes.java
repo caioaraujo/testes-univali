@@ -14,7 +14,7 @@ public class MeusTestes {
 	
 	@Test(expected=ArithmeticException.class)
 	public void meuTeste2() throws Exception {
-		double eee = 12 / 0;
+		double rrr = 12 / 0;
 	}
 
 }
