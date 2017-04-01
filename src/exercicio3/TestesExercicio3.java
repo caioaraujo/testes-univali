@@ -2,9 +2,12 @@ package exercicio3;
 
 import static org.junit.Assert.*;
 
+import org.joda.time.DateTime;
 import org.joda.time.IllegalFieldValueException;
+import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+import org.joda.time.Period;
 import org.junit.Test;
 
 public class TestesExercicio3 {
@@ -59,10 +62,24 @@ public class TestesExercicio3 {
 	@Test
 	public void testHorarioAntesMeiaNoite() {
 		LocalTime onzeEPouco = new LocalTime(23, 59, 59, 999);
-		LocalTime meiaNoite = new LocalTime(0, 0);
+		LocalTime meiaNoite = new LocalTime(0, 0, 0, 0);
 		
-		assertTrue(onzeEPouco.compareTo(meiaNoite) < 0);
+		assertTrue(onzeEPouco.isAfter(meiaNoite));
 		
 	}
+	
+	@Test
+	public void testContagemHoras() {
+		DateTime data1 = new DateTime(2017, 3, 31, 18, 30);
+		DateTime data2 = new DateTime(2017, 5, 6, 18, 30);
+		
+		Interval intervalo = new Interval(data1, data2);
+		Period periodo = new Period(intervalo.toDurationMillis());
+		
+		assertEquals(864, periodo.getHours());
+	}
+	
+	
+	
 	
 }
