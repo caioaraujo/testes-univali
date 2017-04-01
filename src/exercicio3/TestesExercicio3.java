@@ -47,4 +47,22 @@ public class TestesExercicio3 {
 		assertEquals(2017, data.getYear()); 
 	}
 	
+	@Test
+	public void testSubtrairMilisegundo() {
+		LocalTime zeroHora = new LocalTime(0, 0);
+		LocalTime onzeE59 = zeroHora.minusMillis(1);
+		
+		assertEquals(23, onzeE59.getHourOfDay());
+		assertEquals(59, onzeE59.getMinuteOfHour());
+	}
+	
+	@Test
+	public void testHorarioAntesMeiaNoite() {
+		LocalTime onzeEPouco = new LocalTime(23, 59, 59, 999);
+		LocalTime meiaNoite = new LocalTime(0, 0);
+		
+		assertTrue(onzeEPouco.compareTo(meiaNoite) < 0);
+		
+	}
+	
 }
