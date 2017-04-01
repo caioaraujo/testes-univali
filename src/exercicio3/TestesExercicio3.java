@@ -2,6 +2,7 @@ package exercicio3;
 
 import static org.junit.Assert.*;
 
+import org.joda.time.IllegalFieldValueException;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.junit.Test;
@@ -29,6 +30,21 @@ public class TestesExercicio3 {
 		LocalTime wokeUpTime = new LocalTime(11, 59); // hoje eh sabado
 		assertEquals(11, wokeUpTime.getHourOfDay());
 		assertEquals(59, wokeUpTime.getMinuteOfHour());
+	}
+	
+	@Test(expected = IllegalFieldValueException.class)
+	public void dataInvalida() {
+		new LocalDate(2017, 2, 29);
+	}
+	
+	@Test
+	public void testPlusDay() {
+		LocalDate data = new LocalDate(2017, 2, 28);
+		data = data.plusDays(1);
+		
+		assertEquals(1, data.getDayOfMonth());
+		assertEquals(3, data.getMonthOfYear());
+		assertEquals(2017, data.getYear()); 
 	}
 	
 }
