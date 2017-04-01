@@ -8,7 +8,7 @@ public class TestesExercicio3 {
 	
 	@Test
 	public void testName() throws Exception {
-		
+		assertEquals(1, 2);
 	}
 
 }
