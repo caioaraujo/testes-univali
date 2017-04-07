@@ -11,7 +11,7 @@ public class TesteAgencia {
 
 	@Test
 	public void caixaEconomicaTrindade() throws Exception {
-		Banco caixaEconomica = Auxiliar.criarBanco();
+		Banco caixaEconomica = Auxiliar.criarCaixaEconomica();
 		Agencia caixaEconomicaTrindade = Auxiliar.criarCaixaEconomicaTrindade(caixaEconomica);
 		
 		assertEquals("001", caixaEconomicaTrindade.obterIdentificador());

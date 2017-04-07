@@ -13,7 +13,7 @@ public class TesteConta {
 
 	@Test
 	public void joaoCaixaEconomicaTrindade() throws Exception {
-		Banco caixaEconomica = Auxiliar.criarBanco();
+		Banco caixaEconomica = Auxiliar.criarCaixaEconomica();
 		Agencia caixaEconomicaTrindade = Auxiliar.criarCaixaEconomicaTrindade(caixaEconomica);
 		Conta joaoCaixaEconomicaTrindade = Auxiliar.criarContaJoao(caixaEconomicaTrindade);
 		

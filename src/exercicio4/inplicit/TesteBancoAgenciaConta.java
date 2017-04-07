@@ -3,6 +3,7 @@ package exercicio4.inplicit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import br.ufsc.ine.leb.sistemaBancario.Agencia;
@@ -13,9 +14,14 @@ import br.ufsc.ine.leb.sistemaBancario.SistemaBancario;
 
 public class TesteBancoAgenciaConta {
 	
-	Banco caixaEconomica = new SistemaBancario().criarBanco("Caixa Econômica", Moeda.BRL);
-	Agencia caixaEconomicaTrindade = caixaEconomica.criarAgencia("Trindade");
-	Conta joaoCaixaEconomicaTrindade = caixaEconomicaTrindade.criarConta("João");
+	private Banco caixaEconomica;
+	private Agencia caixaEconomicaTrindade;
+	
+	@Before
+	public void configurar() {
+		caixaEconomica = new SistemaBancario().criarBanco("Caixa Econômica", Moeda.BRL);
+		caixaEconomicaTrindade = caixaEconomica.criarAgencia("Trindade");
+	}
 
 	@Test
 	public void caixaEconomica() throws Exception {
@@ -32,6 +38,7 @@ public class TesteBancoAgenciaConta {
 
 	@Test
 	public void joaoCaixaEconomicaTrindade() throws Exception {
+		Conta joaoCaixaEconomicaTrindade = caixaEconomicaTrindade.criarConta("João");
 		assertEquals("0001-4", joaoCaixaEconomicaTrindade.obterIdentificador());
 		assertEquals("João", joaoCaixaEconomicaTrindade.obterTitular());
 		assertTrue(joaoCaixaEconomicaTrindade.calcularSaldo().zero());
