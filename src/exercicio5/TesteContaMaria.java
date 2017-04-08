@@ -15,15 +15,16 @@ import br.ufsc.ine.leb.sistemaBancario.Transacao;
 public class TesteContaMaria {
 	
 	private Agencia agenciaCentro;
+	private Conta contaMaria;
 
 	@Before
 	public void setUp() throws Exception {
 		agenciaCentro = Auxiliar.criarAgenciaCentro(Auxiliar.criarBancoDoBrasil());
+		contaMaria = Auxiliar.createContaMaria(agenciaCentro);
 	}
 
 	@Test
 	public void testContaMaria() {
-		Conta contaMaria = createContaMaria(agenciaCentro);
 		assertEquals("0001-5", contaMaria.obterIdentificador());
 		assertEquals("Maria", contaMaria.obterTitular());
 		assertEquals("0,00", contaMaria.calcularSaldo().obterQuantia().formatado());
@@ -32,7 +33,6 @@ public class TesteContaMaria {
 	
 	@Test
 	public void testDepositoDezConto() {
-		Conta contaMaria = createContaMaria(agenciaCentro);
 		// Deposito de 10 reais
 		Dinheiro quantia = new Dinheiro(agenciaCentro.obterBanco().obterMoeda(), 10, 0);
 		this.realizarDeposito(contaMaria, quantia);
@@ -42,7 +42,6 @@ public class TesteContaMaria {
 	
 	@Test
 	public void testSaqueSeisConto() {
-		Conta contaMaria = createContaMaria(agenciaCentro);
 		// Deposito de 10 reais
 		Dinheiro quantia = new Dinheiro(agenciaCentro.obterBanco().obterMoeda(), 10, 0);
 		this.realizarDeposito(contaMaria, quantia);
@@ -55,7 +54,6 @@ public class TesteContaMaria {
 	
 	@Test 
 	public void testSaqueInsuficiente() {
-		Conta contaMaria = createContaMaria(agenciaCentro);
 		// Deposito de 10 reais
 		Dinheiro quantia = new Dinheiro(agenciaCentro.obterBanco().obterMoeda(), 10, 0);
 		this.realizarDeposito(contaMaria, quantia);
@@ -68,11 +66,6 @@ public class TesteContaMaria {
 		this.realizarSaque(contaMaria, quantia);
 		
 		assertEquals("+4,00 BRL", contaMaria.calcularSaldo().formatado());
-	}
-	
-	private Conta createContaMaria(Agencia agencia) {
-		Conta contaMaria = agencia.criarConta("Maria");
-		return contaMaria;
 	}
 	
 	private void realizarDeposito(Conta conta, Dinheiro quantia) {
