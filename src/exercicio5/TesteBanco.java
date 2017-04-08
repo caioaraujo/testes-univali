@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import br.ufsc.ine.leb.sistemaBancario.Banco;
 import br.ufsc.ine.leb.sistemaBancario.Moeda;
+import br.ufsc.ine.leb.sistemaBancario.SistemaBancario;
 
 public class TesteBanco {
 	
@@ -14,7 +15,7 @@ public class TesteBanco {
 
 	@Before
 	public void setUp() throws Exception {
-		bancoDoBrasil = Auxiliar.criarBancoDoBrasil();
+		bancoDoBrasil = Auxiliar.criarBancoDoBrasil(new SistemaBancario());
 	}
 
 	@Test

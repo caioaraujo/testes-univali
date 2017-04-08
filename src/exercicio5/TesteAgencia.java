@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import br.ufsc.ine.leb.sistemaBancario.Agencia;
 import br.ufsc.ine.leb.sistemaBancario.Banco;
+import br.ufsc.ine.leb.sistemaBancario.SistemaBancario;
 
 public class TesteAgencia {
 	
@@ -14,7 +15,7 @@ public class TesteAgencia {
 
 	@Before
 	public void setUp() throws Exception {
-		Banco bb = Auxiliar.criarBancoDoBrasil();
+		Banco bb = Auxiliar.criarBancoDoBrasil(new SistemaBancario());
 		agenciaCentro = Auxiliar.criarAgenciaCentro(bb);
 	}
 
