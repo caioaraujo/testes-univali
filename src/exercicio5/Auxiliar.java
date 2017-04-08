@@ -8,8 +8,8 @@ import br.ufsc.ine.leb.sistemaBancario.SistemaBancario;
 
 public class Auxiliar {
 	
-	protected static Banco criarBancoDoBrasil() {
-		return new SistemaBancario().criarBanco("Banco do Brasil", Moeda.BRL);
+	protected static Banco criarBancoDoBrasil(SistemaBancario sistemaBancario) {
+		return sistemaBancario.criarBanco("Banco do Brasil", Moeda.BRL);
 	}
 	
 	protected static Agencia criarAgenciaCentro(Banco banco) {

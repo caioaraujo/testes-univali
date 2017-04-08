@@ -10,16 +10,19 @@ import br.ufsc.ine.leb.sistemaBancario.Conta;
 import br.ufsc.ine.leb.sistemaBancario.Dinheiro;
 import br.ufsc.ine.leb.sistemaBancario.Entrada;
 import br.ufsc.ine.leb.sistemaBancario.Saida;
+import br.ufsc.ine.leb.sistemaBancario.SistemaBancario;
 import br.ufsc.ine.leb.sistemaBancario.Transacao;
 
 public class TesteContaMaria {
 	
 	private Agencia agenciaCentro;
 	private Conta contaMaria;
+	private SistemaBancario sistemaBancario;
 
 	@Before
 	public void setUp() throws Exception {
-		agenciaCentro = Auxiliar.criarAgenciaCentro(Auxiliar.criarBancoDoBrasil());
+		sistemaBancario = new SistemaBancario();
+		agenciaCentro = Auxiliar.criarAgenciaCentro(Auxiliar.criarBancoDoBrasil(sistemaBancario));
 		contaMaria = Auxiliar.createContaMaria(agenciaCentro);
 	}
 
@@ -35,7 +38,7 @@ public class TesteContaMaria {
 	public void testDepositoDezConto() {
 		// Deposito de 10 reais
 		Dinheiro quantia = new Dinheiro(agenciaCentro.obterBanco().obterMoeda(), 10, 0);
-		this.realizarDeposito(contaMaria, quantia);
+		sistemaBancario.depositar(contaMaria, quantia);
 		
 		assertEquals(quantia, contaMaria.calcularSaldo().obterQuantia());
 	}
@@ -44,10 +47,10 @@ public class TesteContaMaria {
 	public void testSaqueSeisConto() {
 		// Deposito de 10 reais
 		Dinheiro quantia = new Dinheiro(agenciaCentro.obterBanco().obterMoeda(), 10, 0);
-		this.realizarDeposito(contaMaria, quantia);
+		sistemaBancario.depositar(contaMaria, quantia);
 		// Saque de 6 reais
 		quantia = new Dinheiro(agenciaCentro.obterBanco().obterMoeda(), 6, 0);
-		this.realizarSaque(contaMaria, quantia);
+		sistemaBancario.sacar(contaMaria, quantia);
 		
 		assertEquals("+4,00 BRL", contaMaria.calcularSaldo().formatado());
 	}
@@ -56,26 +59,16 @@ public class TesteContaMaria {
 	public void testSaqueInsuficiente() {
 		// Deposito de 10 reais
 		Dinheiro quantia = new Dinheiro(agenciaCentro.obterBanco().obterMoeda(), 10, 0);
-		this.realizarDeposito(contaMaria, quantia);
+		sistemaBancario.depositar(contaMaria, quantia);
 		// Saque de 6 reais
 		quantia = new Dinheiro(agenciaCentro.obterBanco().obterMoeda(), 6, 0);
-		this.realizarSaque(contaMaria, quantia);
+		sistemaBancario.sacar(contaMaria, quantia);
 		
 		// Tentativa de saque de 8 reais
 		quantia = new Dinheiro(agenciaCentro.obterBanco().obterMoeda(), 8, 0);
-		this.realizarSaque(contaMaria, quantia);
+		sistemaBancario.sacar(contaMaria, quantia);
 		
 		assertEquals("+4,00 BRL", contaMaria.calcularSaldo().formatado());
 	}
 	
-	private void realizarDeposito(Conta conta, Dinheiro quantia) {
-		Transacao transacao = new Entrada(conta, quantia);
-		conta.adicionarTransacao(transacao);
-	}
-	
-	private void realizarSaque(Conta conta, Dinheiro quantia) {
-		Transacao transacao = new Saida(conta, quantia);
-		conta.adicionarTransacao(transacao);
-	}
-
 }
