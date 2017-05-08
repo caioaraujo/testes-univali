@@ -1,6 +1,6 @@
 package exercicio6;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,14 +13,13 @@ import br.ufsc.ine.leb.sistemaBancario.EstadosDeOperacao;
 import br.ufsc.ine.leb.sistemaBancario.Moeda;
 import br.ufsc.ine.leb.sistemaBancario.Operacao;
 import br.ufsc.ine.leb.sistemaBancario.SistemaBancario;
-import exercicio6.Auxiliar;
 
 public class TesteTransferencia {
-	
+
 	private Agencia agenciaBrasileira;
 	private Agencia agenciaAmericana;
 	private SistemaBancario sistemaBancario;
-	
+
 	@Before
 	public void setUp() {
 		sistemaBancario = new SistemaBancario();
@@ -36,7 +35,7 @@ public class TesteTransferencia {
 		Conta contaDestino = Auxiliar.createConta(agenciaAmericana, "Maria");
 		Dinheiro quantia = new Dinheiro(Moeda.CHF, 10, 0);
 		Operacao operacao = sistemaBancario.transferir(contaOrigem, contaDestino, quantia);
-		assertEquals(EstadosDeOperacao.MOEDA_INVALIDA, sistemaBancario, operacao.obterEstado());
+		assertEquals(EstadosDeOperacao.MOEDA_INVALIDA, operacao.obterEstado());
 	}
 
 }
